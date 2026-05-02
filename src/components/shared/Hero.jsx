@@ -1,6 +1,6 @@
 const Hero = () => {
   return (
-    <section className="bg-gray-50 py-24 text-center px-4">
+    <section className=" py-24 text-center px-4">
       <p className="text-sm text-[#ccbe8e] font-medium mb-3 bg-[#f1f3e7] rounded-full badge">
         PREMIUM LEARNING PLATFORM
       </p>
