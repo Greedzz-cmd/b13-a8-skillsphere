@@ -1,78 +1,94 @@
+"use client";
+
+import { useState } from "react";
 import Link from "next/link";
-import logo from "@/../public/logo_black.png";
 import Image from "next/image";
+import logo from "@/../public/logo_black.png";
+import { Button } from "@heroui/react";
+
+const navLinks = [
+  { label: "Home", href: "/" },
+  { label: "Courses", href: "/courses" },
+  { label: "My Profile", href: "/profile" },
+];
 
 const Header = () => {
-  const links = (
-    <>
-      <Link href="/" className="relative inline-block group cursor-pointer">
-        Home
-        <span className="absolute left-0 -bottom-1 h-[2px] w-0 bg-black transition-all duration-300 group-hover:w-full"></span>
-      </Link>
-      <Link
-        href="/courses"
-        className="relative inline-block group cursor-pointer "
-      >
-        Courses
-        <span className="absolute left-0 -bottom-1 h-[2px] w-0 bg-black transition-all duration-300 group-hover:w-full"></span>
-      </Link>
-      <Link
-        href="/profile"
-        className="relative inline-block group cursor-pointer"
-      >
-        My Profile
-        <span className="absolute left-0 -bottom-1 h-[2px] w-0 bg-black transition-all duration-300 group-hover:w-full"></span>
-      </Link>
-    </>
-  );
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   return (
-    <div className="navbar bg-base-100">
-      <div className="navbar-start">
-        <div className="dropdown">
-          <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="h-5 w-5"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              {" "}
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="M4 6h16M4 12h8m-8 6h16"
-              />{" "}
-            </svg>
-          </div>
-          <ul
-            tabIndex="-1"
-            className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow"
-          >
-            {links}
-          </ul>
-        </div>
-        <Link href="/" className="btn btn-ghost text-xl">
-          <Image src={logo} width={40} height={40} alt="logo"></Image>
-          <p>SkillSphere</p>
+    <nav className="sticky top-0 z-40 w-full bg-white/70 backdrop-blur-lg">
+      <header className="mx-auto flex h-16 items-center justify-between px-6">
+        <Link href="/" className="flex items-center gap-2 font-bold text-lg">
+          <Image src={logo} width={40} height={40} alt="logo" />
+          SkillSphere
         </Link>
-      </div>
-      <div className="navbar-center hidden lg:flex">
-        <ul className="menu menu-horizontal px-1 space-x-8 text-gray-600">
-          {links}
+
+        <ul className="hidden md:flex items-center gap-8 text-gray-600">
+          {navLinks.map(({ label, href }) => (
+            <li key={href}>
+              <Link href={href} className="relative inline-block group">
+                {label}
+                <span className="absolute left-0 -bottom-1 h-[2px] w-0 bg-black transition-all duration-300 group-hover:w-full" />
+              </Link>
+            </li>
+          ))}
         </ul>
-      </div>
-      <div className="navbar-end space-x-2">
-        <Link href="/signin" className="btn btn-ghost ">
-          Sign In
-        </Link>
-        <Link href="/signup" className="btn text-white bg-black rounded-lg">
-          Join for Free
-        </Link>
-      </div>
-    </div>
+
+        <div className="hidden md:flex items-center gap-2">
+          <Link href="/signin">
+            <Button as={Link} href="/signin" variant="ghost">
+              Sign In
+            </Button>
+          </Link>
+          <Link href="/signup">
+            <Button as={Link} href="/signup" className="bg-black text-white">
+              Join for Free
+            </Button>
+          </Link>
+        </div>
+
+        <button
+          className="md:hidden p-2"
+          onClick={() => setIsMenuOpen((v) => !v)}
+          aria-label="Toggle menu"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            className="h-5 w-5"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth="2"
+              d={isMenuOpen ? "M6 18L18 6M6 6l12 12" : "M4 6h16M4 12h8m-8 6h16"}
+            />
+          </svg>
+        </button>
+      </header>
+
+      {isMenuOpen && (
+        <div className="md:hidden flex flex-col gap-4 px-6 pb-4 pt-2 text-gray-600 border-t border-neutral-100">
+          {navLinks.map(({ label, href }) => (
+            <Link key={href} href={href} onClick={() => setIsMenuOpen(false)}>
+              {label}
+            </Link>
+          ))}
+          <Link href="/signin" onClick={() => setIsMenuOpen(false)}>
+            Sign In
+          </Link>
+          <Link
+            href="/signup"
+            className="font-semibold text-black"
+            onClick={() => setIsMenuOpen(false)}
+          >
+            Join for Free
+          </Link>
+        </div>
+      )}
+    </nav>
   );
 };
 

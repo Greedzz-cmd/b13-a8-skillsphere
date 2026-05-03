@@ -1,6 +1,2 @@
 @import "tailwindcss";
-@plugin "daisyui";
-
-.fixed-bg {
-  background-image: url("@/../public/background.png");
-}
+@import "@heroui/styles";
