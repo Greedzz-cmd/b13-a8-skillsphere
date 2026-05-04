@@ -5,7 +5,7 @@ import { Button } from "@heroui/react";
 
 const Hero = () => {
   return (
-    <section className="py-24 text-center px-4">
+    <section className="py-24 text-center px-4 relative">
       <span className="text-sm text-[#ccbe8e] font-medium mb-3 bg-[#f1f3e7] px-4 py-1 rounded-full inline-block">
         PREMIUM LEARNING PLATFORM
       </span>

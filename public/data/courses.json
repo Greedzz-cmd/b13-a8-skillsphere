@@ -1,0 +1,112 @@
+[
+  {
+    "id": 1,
+    "title": "Complete Web Development Bootcamp",
+    "instructor": "John Doe",
+    "duration": "20 hours",
+    "rating": 4.8,
+    "level": "Beginner",
+    "description": "Learn full-stack web development from scratch using HTML, CSS, JavaScript, and modern frameworks.",
+    "image": "https://images.unsplash.com/photo-1547658719-da2b51169166?w=800&q=80",
+    "category": "Development"
+  },
+  {
+    "id": 2,
+    "title": "UI/UX Design Masterclass",
+    "instructor": "Jane Smith",
+    "duration": "15 hours",
+    "rating": 4.7,
+    "level": "Beginner",
+    "description": "Master the fundamentals of UI/UX design and create beautiful user experiences.",
+    "image": "https://images.unsplash.com/photo-1561070791-2526d30994b5?w=800&q=80",
+    "category": "Design"
+  },
+  {
+    "id": 3,
+    "title": "Digital Marketing Fundamentals",
+    "instructor": "Michael Lee",
+    "duration": "12 hours",
+    "rating": 4.6,
+    "level": "Beginner",
+    "description": "Learn SEO, social media marketing, and online advertising strategies.",
+    "image": "https://images.unsplash.com/photo-1533750516457-a7f992034fec?w=800&q=80",
+    "category": "Marketing"
+  },
+  {
+    "id": 4,
+    "title": "Advanced React Development",
+    "instructor": "Sarah Johnson",
+    "duration": "18 hours",
+    "rating": 4.9,
+    "level": "Advanced",
+    "description": "Dive deep into React hooks, context API, performance optimization, and scalable architecture.",
+    "image": "https://images.unsplash.com/photo-1633356122102-3fe601e05bd2?w=800&q=80",
+    "category": "Development"
+  },
+  {
+    "id": 5,
+    "title": "Graphic Design Essentials",
+    "instructor": "David Brown",
+    "duration": "10 hours",
+    "rating": 4.5,
+    "level": "Beginner",
+    "description": "Learn the basics of graphic design including typography, color theory, and layout design.",
+    "image": "https://images.unsplash.com/photo-1626785774573-4b799315345d?w=800&q=80",
+    "category": "Design"
+  },
+  {
+    "id": 6,
+    "title": "Python for Beginners",
+    "instructor": "Emily Davis",
+    "duration": "16 hours",
+    "rating": 4.7,
+    "level": "Beginner",
+    "description": "Start coding with Python and build real-world projects step by step.",
+    "image": "https://images.unsplash.com/photo-1526379095098-d400fd0bf935?w=800&q=80",
+    "category": "Development"
+  },
+  {
+    "id": 7,
+    "title": "Freelancing & Client Management",
+    "instructor": "Chris Wilson",
+    "duration": "8 hours",
+    "rating": 4.6,
+    "level": "Intermediate",
+    "description": "Learn how to find clients, manage projects, and build a successful freelancing career.",
+    "image": "https://images.unsplash.com/photo-1542744094-3a31f272c490?w=800&q=80",
+    "category": "Business"
+  },
+  {
+    "id": 8,
+    "title": "Motion Graphics with After Effects",
+    "instructor": "Sophia Martinez",
+    "duration": "14 hours",
+    "rating": 4.8,
+    "level": "Intermediate",
+    "description": "Create stunning animations and motion graphics using Adobe After Effects.",
+    "image": "https://images.unsplash.com/photo-1574717024653-61fd2cf4d44d?w=800&q=80",
+    "category": "Design"
+  },
+  {
+    "id": 9,
+    "title": "Data Analysis with Excel",
+    "instructor": "Daniel Kim",
+    "duration": "11 hours",
+    "rating": 4.5,
+    "level": "Beginner",
+    "description": "Analyze data effectively using Excel tools, formulas, and charts.",
+    "image": "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&q=80",
+    "category": "Data"
+  },
+  {
+    "id": 10,
+    "title": "Full-Stack MERN Project Course",
+    "instructor": "Alex Turner",
+    "duration": "22 hours",
+    "rating": 4.9,
+    "level": "Advanced",
+    "description": "Build complete MERN stack applications with MongoDB, Express, React, and Node.js.",
+    "image": "https://images.unsplash.com/photo-1618401471353-b98afee0b2eb?w=800&q=80",
+    "category": "Development"
+  }
+]

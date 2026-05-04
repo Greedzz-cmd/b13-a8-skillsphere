@@ -1,51 +1,35 @@
 "use client";
 
-import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import logo from "@/../public/logo_black.png";
-import { Button } from "@heroui/react";
+import {
+  Button,
+  Form,
+  TextField,
+  Label,
+  Input,
+  FieldError,
+} from "@heroui/react";
 import { authClient } from "@/lib/auth-client";
 
 const SignPage = () => {
-  const [fields, setFields] = useState({ email: "", password: "" });
-  const [errors, setErrors] = useState({});
-
-  const set = (key) => (e) => {
-    setFields((p) => ({ ...p, [key]: e.target.value }));
-    setErrors((p) => ({ ...p, [key]: "" }));
-  };
-
-  const validate = () => {
-    const errs = {};
-    if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(fields.email))
-      errs.email = "Please enter a valid email address";
-    if (!fields.password) errs.password = "Password is required";
-    return errs;
-  };
-
   const onSubmit = async (e) => {
     e.preventDefault();
-    const errs = validate();
-    if (Object.keys(errs).length > 0) {
-      setErrors(errs);
-      return;
-    }
+    const formData = new FormData(e.currentTarget);
+    const userData = Object.fromEntries(formData.entries());
 
     const { data, error } = await authClient.signIn.email({
-      email: fields.email,
-      password: fields.password,
-      callbackURL: "http://localhost:3000/profile",
+      email: userData.email,
+      password: userData.password,
+      callbackURL: "/",
     });
+
+    console.log("full error object:", JSON.stringify(error, null, 2));
 
     if (error) alert(`Sign-in failed: ${JSON.stringify(error)}`);
     if (data) alert("Signed in successfully!");
   };
-
-  const inputClass = (key) =>
-    `w-full border rounded-lg px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-neutral-400 ${
-      errors[key] ? "border-red-400" : "border-neutral-300"
-    }`;
 
   return (
     <div className="flex justify-center items-center min-h-screen">
@@ -56,48 +40,51 @@ const SignPage = () => {
         <h3 className="font-semibold text-lg mb-1">Welcome Back</h3>
         <p className="text-sm text-neutral-400 mb-6">Sign in to continue</p>
 
-        <form className="flex flex-col gap-4" onSubmit={onSubmit}>
-          {/* Email */}
-          <div className="flex flex-col gap-1">
-            <label className="text-sm font-medium">Email</label>
-            <input
-              type="email"
-              placeholder="john@example.com"
-              className={inputClass("email")}
-              value={fields.email}
-              onChange={set("email")}
-            />
-            {errors.email && (
-              <p className="text-red-500 text-xs">{errors.email}</p>
-            )}
+        <Form className="flex flex-col gap-4" onSubmit={onSubmit}>
+          <TextField
+            isRequired
+            name="email"
+            type="email"
+            validate={(v) =>
+              !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(v)
+                ? "Please enter a valid email address"
+                : null
+            }
+          >
+            <Label>Email</Label>
+            <Input placeholder="john@example.com" />
+            <FieldError />
+          </TextField>
+
+          <TextField
+            isRequired
+            name="password"
+            type="password"
+            validate={(v) => (!v ? "Password is required" : null)}
+          >
+            <Label>Password</Label>
+            <Input placeholder="Enter your password" />
+            <FieldError />
+          </TextField>
+
+          <div className="flex justify-end -mt-2">
+            <Link
+              href="/forgot-password"
+              className="text-xs text-neutral-400 hover:underline"
+            >
+              Forgot password?
+            </Link>
           </div>
 
-          <div className="flex flex-col gap-1">
-            <label className="text-sm font-medium">Password</label>
-            <input
-              type="password"
-              placeholder="Enter your password"
-              className={inputClass("password")}
-              value={fields.password}
-              onChange={set("password")}
-            />
-            {errors.password && (
-              <p className="text-red-500 text-xs">{errors.password}</p>
-            )}
-            <div className="flex justify-end mt-1">
-              <Link
-                href="/forgot-password"
-                className="text-xs text-neutral-400 hover:underline"
-              >
-                Forgot password?
-              </Link>
-            </div>
+          <div className="flex gap-2 mt-2">
+            <Button type="submit" className="flex-1 bg-black text-white">
+              Sign In
+            </Button>
+            <Button type="reset" variant="secondary" className="text-black">
+              Reset
+            </Button>
           </div>
-
-          <Button type="submit" className="w-full bg-black text-white mt-2">
-            Sign In
-          </Button>
-        </form>
+        </Form>
 
         <div className="flex gap-1 justify-center mt-6 text-sm">
           <span className="text-neutral-400">Don&apos;t have an account?</span>

@@ -1,8 +1,5 @@
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import background from "@/../public/background.png";
-import Image from "next/image";
-
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
@@ -25,14 +22,8 @@ export default function RootLayout({ children }) {
       lang="en"
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col relative inset-0 container mx-auto">
-        <Image
-          className="absolute opacity-35 blur-xs z-0"
-          src={background}
-          fill="true"
-          alt="Background"
-        ></Image>
-        <div className="relative">{children}</div>
+      <body className="min-h-full flex flex-col container mx-auto">
+        <div>{children}</div>
       </body>
     </html>
   );

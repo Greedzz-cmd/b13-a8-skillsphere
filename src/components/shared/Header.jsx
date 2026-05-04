@@ -5,15 +5,18 @@ import Link from "next/link";
 import Image from "next/image";
 import logo from "@/../public/logo_black.png";
 import { Button } from "@heroui/react";
+import { useSession } from "@/lib/auth-client";
 
 const navLinks = [
   { label: "Home", href: "/" },
-  { label: "Courses", href: "/courses" },
+  { label: "Courses", href: "/all-courses" },
   { label: "My Profile", href: "/profile" },
 ];
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const { data } = useSession();
+  const user = data?.user;
 
   return (
     <nav className="sticky top-0 z-40 w-full bg-white/70 backdrop-blur-lg">
@@ -35,14 +38,20 @@ const Header = () => {
         </ul>
 
         <div className="hidden md:flex items-center gap-2">
-          <Link href="/signin">
-            <Button as={Link} href="/signin" variant="ghost">
-              Sign In
-            </Button>
-          </Link>
-          <Link href="/signup">
-            <Button as={Link} href="/signup" className="bg-black text-white">
-              Join for Free
+          {user ? (
+            ""
+          ) : (
+            <>
+              <Link href="/signin">
+                <Button as={Link} variant="ghost">
+                  Sign In
+                </Button>
+              </Link>
+            </>
+          )}
+          <Link href={user ? "/signin" : "/signup"}>
+            <Button as={Link} className="bg-black text-white">
+              {user ? "Sign Out" : "Join for Free"}
             </Button>
           </Link>
         </div>
