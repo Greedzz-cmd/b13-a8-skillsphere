@@ -4,6 +4,7 @@ import Hero from "@/components/shared/Hero";
 import Image from "next/image";
 import background from "@/../public/background.png";
 import LearningTips from "../components/shared/LearningTips";
+import TopInstructors from "@/components/shared/TopInstructors";
 
 export default function Home() {
   return (
@@ -21,6 +22,7 @@ export default function Home() {
       </div>
       <PopularCourses></PopularCourses>
       <LearningTips></LearningTips>
+      <TopInstructors></TopInstructors>
     </>
   );
 }

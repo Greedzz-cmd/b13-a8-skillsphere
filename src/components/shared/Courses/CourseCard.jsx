@@ -1,3 +1,6 @@
+import { Button } from "@heroui/react";
+import Link from "next/link";
+
 export default function CourseCard({ course }) {
   return (
     <div className="border rounded-xl overflow-hidden shadow hover:shadow-md transition">
@@ -19,6 +22,7 @@ export default function CourseCard({ course }) {
             {course.level}
           </span>
         </div>
+        <Button className="bg-black">See Details</Button>
       </div>
     </div>
   );
