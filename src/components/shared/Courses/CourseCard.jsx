@@ -1,7 +1,10 @@
+"use client";
+import { useSession } from "@/lib/auth-client";
 import { Button } from "@heroui/react";
 import Link from "next/link";
 
 export default function CourseCard({ course }) {
+  const { user } = useSession();
   return (
     <div className="border rounded-xl overflow-hidden shadow hover:shadow-md transition">
       <img
@@ -22,7 +25,9 @@ export default function CourseCard({ course }) {
             {course.level}
           </span>
         </div>
-        <Button className="bg-black">See Details</Button>
+        <Link href={user ? `/all-courses/${course.id}` : "/signin"}>
+          <Button className="bg-black mt-2">See Details</Button>
+        </Link>
       </div>
     </div>
   );

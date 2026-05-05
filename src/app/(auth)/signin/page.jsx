@@ -33,7 +33,7 @@ const SignPage = () => {
 
   return (
     <div className="flex justify-center items-center min-h-screen">
-      <div className="w-full max-w-[380px] border border-neutral-200 dark:border-neutral-700 rounded-xl p-6">
+      <div className="w-full max-w-95 border border-neutral-200 dark:border-neutral-700 rounded-xl p-6">
         <div className="flex justify-center mb-6">
           <Image src={logo} width={70} height={70} alt="logo" />
         </div>
@@ -52,7 +52,7 @@ const SignPage = () => {
             }
           >
             <Label>Email</Label>
-            <Input placeholder="john@example.com" />
+            <Input placeholder="Enter Your Email" />
             <FieldError />
           </TextField>
 
