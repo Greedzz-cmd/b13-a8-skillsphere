@@ -1,3 +1,12 @@
+import Image from "next/image";
+
+const instructors = [
+  { id: 11, name: "John Doe", specialty: "Web Development" },
+  { id: 32, name: "Jane Smith", specialty: "UI/UX Design" },
+  { id: 45, name: "Michael Lee", specialty: "Digital Marketing" },
+  { id: 28, name: "Sarah Johnson", specialty: "React Development" },
+];
+
 const TopInstructors = () => {
   return (
     <div className="py-12 px-6 bg-base-100">
@@ -6,57 +15,22 @@ const TopInstructors = () => {
       </h2>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto">
-        {/* Instructor 1 */}
-        <div
-          className="bg-base-200 p-6 rounded-2xl shadow-md text-center 
-                        hover:shadow-xl hover:-translate-y-1 transition"
-        >
-          <img
-            src="https://i.pravatar.cc/150?img=11"
-            className="w-20 h-20 rounded-full mx-auto mb-4 border-4 border-primary"
-          />
-          <h3 className="font-bold text-lg">John Doe</h3>
-          <p className="text-sm text-gray-400">Web Development</p>
-        </div>
-
-        {/* Instructor 2 */}
-        <div
-          className="bg-base-200 p-6 rounded-2xl shadow-md text-center 
-                        hover:shadow-xl hover:-translate-y-1 transition"
-        >
-          <img
-            src="https://i.pravatar.cc/150?img=32"
-            className="w-20 h-20 rounded-full mx-auto mb-4 border-4 border-primary"
-          />
-          <h3 className="font-bold text-lg">Jane Smith</h3>
-          <p className="text-sm text-gray-400">UI/UX Design</p>
-        </div>
-
-        {/* Instructor 3 */}
-        <div
-          className="bg-base-200 p-6 rounded-2xl shadow-md text-center 
-                        hover:shadow-xl hover:-translate-y-1 transition"
-        >
-          <img
-            src="https://i.pravatar.cc/150?img=45"
-            className="w-20 h-20 rounded-full mx-auto mb-4 border-4 border-primary"
-          />
-          <h3 className="font-bold text-lg">Michael Lee</h3>
-          <p className="text-sm text-gray-400">Digital Marketing</p>
-        </div>
-
-        {/* Instructor 4 */}
-        <div
-          className="bg-base-200 p-6 rounded-2xl shadow-md text-center 
-                        hover:shadow-xl hover:-translate-y-1 transition"
-        >
-          <img
-            src="https://i.pravatar.cc/150?img=28"
-            className="w-20 h-20 rounded-full mx-auto mb-4 border-4 border-primary"
-          />
-          <h3 className="font-bold text-lg">Sarah Johnson</h3>
-          <p className="text-sm text-gray-400">React Development</p>
-        </div>
+        {instructors.map(({ id, name, specialty }) => (
+          <div
+            key={id}
+            className="bg-base-200 p-6 rounded-2xl shadow-md text-center hover:shadow-xl hover:-translate-y-1 transition"
+          >
+            <Image
+              src={`https://i.pravatar.cc/150?img=${id}`}
+              alt={name}
+              width={80}
+              height={80}
+              className="rounded-full mx-auto mb-4 border-4 border-primary"
+            />
+            <h3 className="font-bold text-lg">{name}</h3>
+            <p className="text-sm text-gray-400">{specialty}</p>
+          </div>
+        ))}
       </div>
     </div>
   );

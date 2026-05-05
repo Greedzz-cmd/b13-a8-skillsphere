@@ -1,13 +1,13 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import logo from "@/../public/logo_black.png";
 import { Button } from "@heroui/react";
 import { authClient, useSession } from "@/lib/auth-client";
 
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 
 const navLinks = [
   { label: "Home", href: "/" },
@@ -15,8 +15,24 @@ const navLinks = [
   { label: "My Profile", href: "/profile" },
 ];
 
+const isActiveLink = (pathname, href) => {
+  if (href === "/") {
+    return pathname === "/";
+  }
+
+  return pathname === href || pathname.startsWith(`${href}/`);
+};
+
 const Header = () => {
+  const pathname = usePathname();
   const router = useRouter();
+  const navItemRefs = useRef({});
+  const [hoveredHref, setHoveredHref] = useState(null);
+  const [indicatorStyle, setIndicatorStyle] = useState({
+    left: 0,
+    width: 0,
+    opacity: 0,
+  });
 
   const handleSignOut = async () => {
     await authClient.signOut({
@@ -31,6 +47,34 @@ const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { data } = useSession();
   const user = data?.user;
+  const activeHref =
+    navLinks.find(({ href }) => isActiveLink(pathname, href))?.href ??
+    navLinks[0].href;
+  const indicatorHref = hoveredHref ?? activeHref;
+
+  useEffect(() => {
+    const updateIndicator = () => {
+      const currentItem = navItemRefs.current[indicatorHref];
+
+      if (!currentItem) {
+        setIndicatorStyle((prev) => ({ ...prev, opacity: 0 }));
+        return;
+      }
+
+      setIndicatorStyle({
+        left: currentItem.offsetLeft,
+        width: currentItem.offsetWidth,
+        opacity: 1,
+      });
+    };
+
+    updateIndicator();
+    window.addEventListener("resize", updateIndicator);
+
+    return () => {
+      window.removeEventListener("resize", updateIndicator);
+    };
+  }, [indicatorHref]);
 
   return (
     <nav className="sticky top-0 z-40 w-full bg-white/70 backdrop-blur-lg">
@@ -40,15 +84,35 @@ const Header = () => {
           SkillSphere
         </Link>
 
-        <ul className="hidden md:flex items-center gap-8 text-gray-600">
+        <ul
+          className="relative hidden md:flex items-center gap-8 text-gray-600"
+          onMouseLeave={() => setHoveredHref(null)}
+        >
           {navLinks.map(({ label, href }) => (
-            <li key={href}>
-              <Link href={href} className="relative inline-block group">
+            <li
+              key={href}
+              ref={(element) => {
+                navItemRefs.current[href] = element;
+              }}
+            >
+              <Link
+                href={href}
+                className={`inline-block pb-2 transition-colors duration-300 ${
+                  isActiveLink(pathname, href) ? "text-black" : "text-gray-600"
+                }`}
+                onMouseEnter={() => setHoveredHref(href)}
+                onFocus={() => setHoveredHref(href)}
+                onBlur={() => setHoveredHref(null)}
+              >
                 {label}
-                <span className="absolute left-0 -bottom-1 h-[2px] w-0 bg-black transition-all duration-300 group-hover:w-full" />
               </Link>
             </li>
           ))}
+          <span
+            aria-hidden="true"
+            className="pointer-events-none absolute bottom-0 h-1 rounded-full bg-black transition-all duration-300 ease-out"
+            style={indicatorStyle}
+          />
         </ul>
 
         <div className="hidden md:flex items-center gap-2">
@@ -57,9 +121,7 @@ const Header = () => {
           ) : (
             <>
               <Link href="/signin">
-                <Button as={Link} variant="ghost">
-                  Sign In
-                </Button>
+                <Button variant="ghost">Sign In</Button>
               </Link>
             </>
           )}
@@ -106,16 +168,27 @@ const Header = () => {
               {label}
             </Link>
           ))}
-          <Link href="/signin" onClick={() => setIsMenuOpen(false)}>
-            Sign In
-          </Link>
-          <Link
-            href="/signup"
-            className="font-semibold text-black"
-            onClick={() => setIsMenuOpen(false)}
-          >
-            Join for Free
-          </Link>
+          {user ? (
+            ""
+          ) : (
+            <>
+              <Link href="/signin">
+                <Button variant="ghost">Sign In</Button>
+              </Link>
+            </>
+          )}
+          {user ? (
+            <Button
+              onClick={() => handleSignOut()}
+              className="bg-black text-white"
+            >
+              Sign Out
+            </Button>
+          ) : (
+            <Link href="/signup">
+              <Button className="bg-black text-white">Join for Free</Button>
+            </Link>
+          )}
         </div>
       )}
     </nav>

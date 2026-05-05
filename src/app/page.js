@@ -5,6 +5,7 @@ import Image from "next/image";
 import background from "@/../public/background.png";
 import LearningTips from "../components/shared/LearningTips";
 import TopInstructors from "@/components/shared/TopInstructors";
+import Footer from "@/components/shared/Footer";
 
 export default function Home() {
   return (
@@ -23,6 +24,7 @@ export default function Home() {
       <PopularCourses></PopularCourses>
       <LearningTips></LearningTips>
       <TopInstructors></TopInstructors>
+      <Footer></Footer>
     </>
   );
 }
