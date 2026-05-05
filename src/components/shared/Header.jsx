@@ -5,7 +5,9 @@ import Link from "next/link";
 import Image from "next/image";
 import logo from "@/../public/logo_black.png";
 import { Button } from "@heroui/react";
-import { useSession } from "@/lib/auth-client";
+import { authClient, useSession } from "@/lib/auth-client";
+
+import { useRouter } from "next/navigation";
 
 const navLinks = [
   { label: "Home", href: "/" },
@@ -14,6 +16,18 @@ const navLinks = [
 ];
 
 const Header = () => {
+  const router = useRouter();
+
+  const handleSignOut = async () => {
+    await authClient.signOut({
+      fetchOptions: {
+        onSuccess: () => {
+          router.push("/signin");
+          router.refresh();
+        },
+      },
+    });
+  };
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { data } = useSession();
   const user = data?.user;
@@ -49,11 +63,18 @@ const Header = () => {
               </Link>
             </>
           )}
-          <Link href={user ? "/signin" : "/signup"}>
-            <Button as={Link} className="bg-black text-white">
-              {user ? "Sign Out" : "Join for Free"}
+          {user ? (
+            <Button
+              onClick={() => handleSignOut()}
+              className="bg-black text-white"
+            >
+              Sign Out
             </Button>
-          </Link>
+          ) : (
+            <Link href="/signup">
+              <Button className="bg-black text-white">Join for Free</Button>
+            </Link>
+          )}
         </div>
 
         <button

@@ -1,17 +1,21 @@
 "use client";
 import { useSession } from "@/lib/auth-client";
 import { Button } from "@heroui/react";
+import Image from "next/image";
 import Link from "next/link";
 
 export default function CourseCard({ course }) {
   const { user } = useSession();
   return (
     <div className="border rounded-xl overflow-hidden shadow hover:shadow-md transition">
-      <img
-        src={course.image}
-        alt={course.title}
-        className="w-full h-48 object-cover"
-      />
+      <div className="relative w-full h-48">
+        <Image
+          src={course.image}
+          alt={course.title}
+          fill
+          className="object-cover"
+        />
+      </div>
       <div className="p-4">
         <span className="text-xs text-blue-500 font-medium">
           {course.category}

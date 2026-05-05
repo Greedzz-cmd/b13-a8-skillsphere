@@ -33,8 +33,6 @@ const SignUpPage = () => {
       callbackURL: "http://localhost:3000/profile",
     });
 
-    console.log("full error object:", JSON.stringify(error, null, 2));
-
     if (error) alert(`Sign-up failed: ${JSON.stringify(error)}`);
     if (data)
       alert(

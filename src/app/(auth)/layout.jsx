@@ -1,3 +1,4 @@
+"use client";
 import LeftPanelAuth from "@/components/shared/LeftPanelAuth";
 import RightPanelAuth from "@/components/shared/RightPanelAuth";
 import Image from "next/image";
