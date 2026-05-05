@@ -1,17 +1,10 @@
+import Image from "next/image";
 import { notFound } from "next/navigation";
-
-const fetchCourses = async () => {
-  const res = await fetch(`${process.env.BETTER_AUTH_URL}/data/courses.json`, {
-    next: { revalidate: 60 },
-  });
-  return res.json();
-};
+import { getCourseById } from "@/lib/fetchCourses";
 
 const CourseDetails = async ({ params }) => {
   const { id } = await params;
-  const courses = await fetchCourses();
-
-  const course = courses.find((c) => c.id === parseInt(id));
+  const course = await getCourseById(id);
 
   if (!course) {
     notFound();
@@ -21,11 +14,14 @@ const CourseDetails = async ({ params }) => {
     <div className="p-6 max-w-5xl mx-auto grid md:grid-cols-3 gap-6">
       {/* Left */}
       <div className="md:col-span-2">
-        <img
-          src={course.image}
-          alt={course.title}
-          className="w-full h-64 object-cover rounded-xl mb-4"
-        />
+        <div className="relative w-full h-64 mb-4">
+          <Image
+            src={course.image}
+            alt={course.title}
+            fill
+            className="object-cover rounded-xl"
+          />
+        </div>
 
         <h1 className="text-3xl font-bold mb-4">{course.title}</h1>
 

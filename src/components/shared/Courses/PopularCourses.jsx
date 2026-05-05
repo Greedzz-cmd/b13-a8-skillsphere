@@ -1,16 +1,10 @@
 import CourseCard from "./CourseCard";
-
-const fetchCourses = async () => {
-  const res = await fetch(`${process.env.BETTER_AUTH_URL}/data/courses.json`, {
-    next: { revalidate: 60 },
-  });
-  return res.json();
-};
+import { getCourses } from "@/lib/fetchCourses";
 
 const PopularCourses = async () => {
-  const courses = await fetchCourses();
+  const courses = await getCourses();
   const popularCourses = courses
-    .sort((a, b) => a.rating - b.rating)
+    .sort((a, b) => b.rating - a.rating)
     .slice(0, 3);
 
   return (
