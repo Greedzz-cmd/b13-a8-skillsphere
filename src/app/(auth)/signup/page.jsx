@@ -14,6 +14,7 @@ import {
   TextField,
 } from "@heroui/react";
 import { authClient } from "@/lib/auth-client";
+import { toast } from "react-toastify";
 
 const SignUpPage = () => {
   const onSubmit = async (e) => {
@@ -22,7 +23,7 @@ const SignUpPage = () => {
     const userData = Object.fromEntries(formData.entries());
 
     if (userData.password !== userData.confirmPassword) {
-      alert("Passwords do not match.");
+      toast.error("Passwords do not match.");
       return;
     }
 
@@ -33,11 +34,8 @@ const SignUpPage = () => {
       callbackURL: "http://localhost:3000/profile",
     });
 
-    if (error) alert(`Sign-up failed: ${JSON.stringify(error)}`);
-    if (data)
-      alert(
-        "Sign-up successful! Please check your email to verify your account.",
-      );
+    if (error) toast.error(error.message || "An error occurred during sign up");
+    if (data) toast.success("Account created successfully!");
   };
 
   return (

@@ -12,6 +12,7 @@ import {
   FieldError,
 } from "@heroui/react";
 import { authClient } from "@/lib/auth-client";
+import { toast } from "react-toastify";
 
 const SignPage = () => {
   const onSubmit = async (e) => {
@@ -25,10 +26,9 @@ const SignPage = () => {
       callbackURL: "/",
     });
 
-    console.log("full error object:", JSON.stringify(error, null, 2));
 
-    if (error) alert(`Sign-in failed: ${JSON.stringify(error)}`);
-    if (data) alert("Signed in successfully!");
+    if (error) toast.error(error.message || "An error occurred during sign in");
+    if (data) toast.success("Signed in successfully!");
   };
 
   return (

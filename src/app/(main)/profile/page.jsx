@@ -11,6 +11,8 @@ function ProfileAvatar({ user }) {
     return (
       // eslint-disable-next-line @next/next/no-img-element
       <Image
+        width={96}
+        height={96}
         src={user.image}
         alt={user.name ?? user.email}
         className="h-24 w-24 rounded-full object-cover border"
