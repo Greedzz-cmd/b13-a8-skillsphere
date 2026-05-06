@@ -2,7 +2,7 @@
 
 A modern online learning platform where users can explore courses, watch lessons, and enroll in skill-based programs like Web Development, Design, Marketing, and more.
 
-🔗 **Live URL:** [https://b13-a8-skillsphere-pwuk9moot-greedzz-cmds-projects.vercel.app/](https://b13-a8-skillsphere-pwuk9moot-greedzz-cmds-projects.vercel.app/)
+🔗 **Live URL:** [https://b13-a8-skillsphere-dun.vercel.app/](https://b13-a8-skillsphere-dun.vercel.app/)
 📁 **GitHub Repo:** [https://github.com/Greedzz-cmd/b13-a8-skillsphere](https://github.com/Greedzz-cmd/b13-a8-skillsphere)
 
 ---
