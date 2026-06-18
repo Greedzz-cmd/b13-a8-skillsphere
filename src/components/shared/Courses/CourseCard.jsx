@@ -5,7 +5,8 @@ import Image from "next/image";
 import Link from "next/link";
 
 export default function CourseCard({ course }) {
-  const { user } = useSession();
+  const { data } = useSession();
+  const isLoggedIn = !!data?.user;
   return (
     <div className="border rounded-xl overflow-hidden shadow hover:shadow-md transition">
       <div className="relative w-full h-48">
@@ -29,7 +30,7 @@ export default function CourseCard({ course }) {
             {course.level}
           </span>
         </div>
-        <Link href={user ? `/all-courses/${course.id}` : "/signin"}>
+        <Link href={isLoggedIn ? `/all-courses/${course.id}` : "/signin"}>
           <Button className="bg-black mt-2">See Details</Button>
         </Link>
       </div>
